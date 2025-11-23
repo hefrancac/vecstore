@@ -1,4 +1,4 @@
-// nike-clone-backend/models/productModel.js (ATUALIZADO COM GALERIA)
+// nike-clone-backend/models/productModel.js
 
 import mongoose from 'mongoose';
 
@@ -16,31 +16,43 @@ const productSchema = new mongoose.Schema(
             type: String,
             required: [true, "Por favor, adicione uma categoria"],
         },
+
+        // --- NOVO CAMPO: GÊNERO (Masculino / Feminino) ---
+        gender: { 
+            type: String, 
+            required: false, 
+            default: 'Unissex',
+            enum: ['Masculino', 'Feminino', 'Unissex'] 
+        },
+        // -------------------------------------------------
+
         price: {
             type: Number,
             required: [true, "Por favor, adicione um preço"],
             default: 0,
         },
-        image: { // A imagem de capa (usada nos cards)
+        image: { // A imagem de capa
             type: String,
             required: [true, "Por favor, adicione uma URL de imagem"],
         },
         
-        // --- NOVO CAMPO PARA A GALERIA ---
+        // Campo da Galeria (Mantido)
         images: {
-            type: [String], // Um array de strings (links de imagem)
+            type: [String], 
             default: [],
         },
-        // --- FIM DO NOVO CAMPO ---
 
         badge: { 
             type: String,
             default: '',
         },
+        
         searchName: {
             type: String,
             index: true,
         },
+
+        // Campo de Cores (Mantido)
         colors: {
             type: [String],
             default: [],
@@ -51,7 +63,7 @@ const productSchema = new mongoose.Schema(
     }
 );
 
-// Lógica de Pré-Salvamento (continua igual)
+// Lógica de Pré-Salvamento (Mantida igual)
 productSchema.pre('save', function(next) {
     if (this.isModified('name') || this.isNew) {
         const removeDiacritics = (text) => {

@@ -1,15 +1,22 @@
-// src/components/Hero.jsx
+// src/components/Hero.jsx (COM VÍDEO DE FUNDO)
 
 import React from 'react';
-import './Hero.css'; // Vamos criar o CSS para este componente
+import './Hero.css';
 
 const Hero = () => {
   return (
     <section className="hero">
-      {/* 2. Overlay gradient suave (do seu plano) */}
+      {/* 1. VÍDEO DE FUNDO */}
+      <video className="hero-video" autoPlay loop muted playsInline>
+        {/* O caminho começa com / porque está na pasta public */}
+        <source src="/hero-video.mp4" type="video/mp4" />
+        Seu navegador não suporta vídeos HTML5.
+      </video>
+
+      {/* 2. Overlay (Camada escura para o texto aparecer melhor) */}
       <div className="hero-overlay"></div>
       
-      {/* 2. Conteúdo com textos grandes e bold + animação (do seu plano) */}
+      {/* 3. Conteúdo (Texto e Botão) */}
       <div className="hero-content">
         <span className="hero-subtitle">Nova Coleção</span>
         <h1 className="hero-title">DESAFIE SEUS LIMITES</h1>

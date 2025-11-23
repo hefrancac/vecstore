@@ -1,52 +1,65 @@
-/* src/components/Hero.css */
+/* src/components/Hero.css (COM ESTILOS DE VÍDEO) */
 
 .hero {
-  /* 2. Hero Section full-width com imagem de fundo */
   position: relative;
-  height: calc(100vh - 103px); /* Altura da tela inteira, menos a promo-bar (33px) e o header (70px) */
+  /* Altura da tela inteira menos o header (103px) */
+  height: calc(100vh - 103px); 
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
   color: var(--branco);
+  overflow: hidden; /* Garante que o vídeo não vaze */
   
-  /* 7. Imagem full-bleed (sangrada) */
-  background-image: url('/herosite.avif');
-  background-size: cover;
-  background-position: center;
-  overflow: hidden; /* Garante que nada vaze */
+  /* REMOVIDO: background-image antigo */
+  background-color: #000; /* Cor de fundo caso o vídeo demore a carregar */
 }
 
-/* 2. Overlay gradient suave */
+/* 1. Estilo do Vídeo de Fundo */
+.hero-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Faz o vídeo cobrir toda a área sem distorcer */
+  z-index: 0; /* Fica na camada mais baixa */
+}
+
+/* 2. Overlay (Ajustado o z-index) */
 .hero-overlay {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.2));
-  z-index: 1;
+  /* Gradiente suave para o texto branco ler bem sobre o vídeo */
+  background: linear-gradient(0deg, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3));
+  z-index: 1; /* Fica acima do vídeo */
 }
 
+/* 3. Conteúdo (Ajustado o z-index) */
 .hero-content {
   position: relative;
-  z-index: 2;
-  /* 2. Animação de entrada (slide-up + fade-in) */
+  z-index: 2; /* Fica acima de tudo */
+  
+  /* Animação de entrada */
   opacity: 0;
   transform: translateY(30px);
   animation: hero-fade-in 1s ease 0.5s forwards;
 }
 
-/* 7. Tipografia bold e grande */
 .hero-subtitle {
   font-size: 1rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 2px;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 
 .hero-title {
-  font-size: 4.5rem; /* Título principal bem grande */
+  font-size: 4.5rem;
   font-weight: 900;
   margin: 0.5rem 0 1rem;
   line-height: 1.1;
@@ -56,10 +69,9 @@
 .hero-description {
   font-size: 1.1rem;
   max-width: 600px;
-  margin: 0 auto 2rem; 
+  margin: 0 auto 2rem; /* Centraliza e dá margem */
 }
 
-/* 2. Call-to-action destacado */
 .hero-cta-button {
   background-color: var(--branco);
   color: var(--preto);
@@ -69,6 +81,7 @@
   border-radius: 30px;
   transition: all 0.3s ease;
   font-size: 0.9rem;
+  display: inline-block;
 }
 
 .hero-cta-button:hover {
@@ -76,7 +89,7 @@
   transform: scale(1.05);
 }
 
-/* 2. Animação de entrada (Keyframes) */
+/* Animação Keyframes */
 @keyframes hero-fade-in {
   to {
     opacity: 1;
@@ -84,18 +97,18 @@
   }
 }
 
-/* 8. Responsividade: Ajuste para mobile */
+/* Responsividade */
 @media (max-width: 768px) {
   .hero {
-     /* Ajusta a altura no mobile para não contar o header (que será 'sticky') */
      height: calc(100vh - 103px);
   }
 
   .hero-title {
-    font-size: 2.5rem; /* Diminui o título no mobile */
+    font-size: 2.5rem;
   }
 
   .hero-description {
     font-size: 1rem;
+    padding: 0 1rem;
   }
 }

@@ -1,23 +1,20 @@
-// src/components/Header.jsx (SIMPLIFICADO)
+// src/components/Header.jsx (COMPLETO E CORRIGIDO)
 
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Header.css';
 import { FaSearch, FaRegHeart, FaShoppingBag, FaBars, FaTimes, FaUser } from 'react-icons/fa'; 
 import { useCart } from '../context/CartContext'; 
-import { useAuth } from '../context/AuthContext'; // Já importamos o AuthContext
+import { useAuth } from '../context/AuthContext'; 
 
-// 1. REMOVEMOS 'openWishlist' das props
 const Header = ({ toggleSearch, openSignUpModal, openLoginModal }) => { 
   const { openCart, cartItemCount } = useCart(); 
-  
-  // 2. PEGAMOS 'openWishlist' DIRETO DO CONTEXTO
   const { user, isAuthenticated, logout, openWishlist } = useAuth(); 
   
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); 
 
-  const toggleMobileMenu = () => setIsMobileMenuOpen(false);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(prev => !prev);
   const toggleUserMenu = () => setIsUserMenuOpen(prev => !prev);
 
   const handleUserAction = (action) => {
@@ -35,7 +32,7 @@ const Header = ({ toggleSearch, openSignUpModal, openLoginModal }) => {
       if (!isAuthenticated) {
           openLoginModal(); 
       } else {
-          openWishlist(); // 3. A função vinda do Contexto
+          openWishlist(); 
       }
   }
 
@@ -51,12 +48,13 @@ const Header = ({ toggleSearch, openSignUpModal, openLoginModal }) => {
             <Link to="/">PREMIUM</Link>
           </div>
 
+          {/* 1. MENU DESKTOP CORRIGIDO */}
           <ul className="nav-menu-desktop">
             <li><Link to="/">Novidades</Link></li>
-            <li><Link to="/categoria/Corrida">Corrida</Link></li>
+            <li><Link to="/categoria/Masculino">Masculino</Link></li>
+            <li><Link to="/categoria/Feminino">Feminino</Link></li>
             <li><Link to="/categoria/Treino">Treino</Link></li>
             <li><Link to="/categoria/Casual">Casual</Link></li>
-            <li><Link to="/">Promoções</Link></li>
           </ul>
 
           <div className="nav-icons">
@@ -104,7 +102,16 @@ const Header = ({ toggleSearch, openSignUpModal, openLoginModal }) => {
         </nav>
       </header>
 
-      {/* ... (Menu Mobile) ... */}
+      {/* 2. MENU MOBILE CORRIGIDO (ESTAVA FALTANDO) */}
+      <div className={`nav-menu-mobile ${isMobileMenuOpen ? 'open' : ''}`}>
+        <ul onClick={() => setIsMobileMenuOpen(false)}> 
+          <li><Link to="/">Novidades</Link></li>
+          <li><Link to="/categoria/Masculino">Masculino</Link></li>
+          <li><Link to="/categoria/Feminino">Feminino</Link></li>
+          <li><Link to="/categoria/Treino">Treino</Link></li>
+          <li><Link to="/categoria/Casual">Casual</Link></li>
+        </ul>
+      </div>
     </>
   );
 };

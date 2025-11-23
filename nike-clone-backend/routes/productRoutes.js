@@ -1,19 +1,34 @@
-// routes/productRoutes.js
+// nike-clone-backend/routes/productRoutes.js
 
 import express from 'express';
 import Product from '../models/productModel.js';
 
 const router = express.Router();
 
-// @desc    Buscar produtos (COM FILTRO DE CATEGORIA)
+// @desc    Buscar produtos (COM LÓGICA DE MASCULINO/FEMININO)
 // @route   GET /api/products
 // @access  Público
 router.get('/', async (req, res) => {
     try {
-        const category = req.query.category 
-            ? { category: req.query.category } 
-            : {}; 
-        const products = await Product.find({ ...category });
+        let filter = {};
+        const queryCategory = req.query.category;
+
+        if (queryCategory) {
+            // LÓGICA NOVA: Verifica se o filtro é de Gênero
+            if (queryCategory === 'Masculino' || queryCategory === 'Feminino') {
+                // Se for Masculino/Feminino, buscamos no campo 'gender'
+                // E incluímos também os produtos 'Unissex'
+                filter = { 
+                    gender: { $in: [queryCategory, 'Unissex'] } 
+                };
+            } 
+            // Senão, continua filtrando pela categoria normal (Corrida, Treino, etc.)
+            else {
+                filter = { category: queryCategory };
+            }
+        }
+
+        const products = await Product.find(filter);
         res.json(products);
     } catch (error) {
         res.status(500).json({ message: 'Erro no servidor' });
@@ -21,7 +36,7 @@ router.get('/', async (req, res) => {
 });
 
 
-// @desc    BUSCA POR AUTOCOMPLETE (NOVA ROTA)
+// @desc    BUSCA POR AUTOCOMPLETE (MANTIDO IGUAL)
 // @route   GET /api/products/search
 // @access  Público
 router.get('/search', async (req, res) => {
@@ -34,15 +49,13 @@ router.get('/search', async (req, res) => {
         }
 
         // 2. Cria uma "Expressão Regular" (regex) para buscar
-        // Isso procura por 'query' em qualquer parte do nome
-        // 'i' significa "ignorar maiúsculas/minúsculas"
         const searchRegex = new RegExp(query, 'i');
 
         // 3. Busca no banco de dados
         const products = await Product.find({
             name: { $regex: searchRegex }
         })
-        .limit(5); // 4. Limita a 5 resultados (para um autocomplete rápido)
+        .limit(5); // 4. Limita a 5 resultados
 
         res.json(products);
     } catch (error) {
@@ -51,7 +64,7 @@ router.get('/search', async (req, res) => {
 });
 
 
-// @desc    Buscar um produto por ID (Esta rota deve vir DEPOIS da /search)
+// @desc    Buscar um produto por ID (MANTIDO IGUAL)
 // @route   GET /api/products/:id
 // @access  Público
 router.get('/:id', async (req, res) => {
