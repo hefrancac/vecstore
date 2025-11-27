@@ -127,7 +127,5 @@ O site rodará em http://localhost:5173
         ├── components/ # Header, Footer, Cards, Modais
         ├── context/    # Lógica global (Auth, Cart)
         └── screens/    # Páginas (Home, Product, Checkout)
-🤝 Contribuição
-Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou enviar pull requests.
 
 Desenvolvido com 💜 por V&C Tech Team.
