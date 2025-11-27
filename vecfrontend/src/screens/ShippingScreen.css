@@ -1,0 +1,230 @@
+/* src/screens/ShippingScreen.css (COMPLETO E CORRIGIDO) */
+
+/* Wrapper geral */
+.shipping-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: calc(100vh - 103px);
+}
+
+.steps-container {
+  margin-bottom: 3rem;
+}
+
+/* --- LAYOUT DE GRID (2 Colunas) --- */
+.shipping-content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Divide a tela em 2 partes iguais */
+  gap: 4rem; /* Espaço entre o resumo e o formulário */
+  align-items: flex-start;
+}
+
+/* --- ESTILO DA COLUNA ESQUERDA (RESUMO) --- */
+.order-summary-preview {
+  background-color: #f9f9f9; /* Fundo levemente cinza para destacar */
+  padding: 2rem;
+  border-radius: 12px;
+  /* Sombra suave */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
+}
+
+.order-summary-preview h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  text-transform: uppercase;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 1rem;
+}
+
+.mini-cart-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-height: 400px; /* Se tiver muitos itens, cria scroll */
+  overflow-y: auto;
+  padding-right: 10px; /* Espaço para a barra de rolagem não colar */
+  padding-top: 10px; /* Espaço extra para a bolinha não cortar no topo */
+}
+
+.mini-cart-item {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.mini-img-wrapper {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  /* CORREÇÃO: Margens para evitar que a bolinha seja cortada */
+  margin-top: 5px; 
+  margin-right: 10px;
+  flex-shrink: 0; /* Garante que a imagem não encolha */
+}
+
+.mini-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #eee;
+}
+
+.mini-qty {
+  position: absolute;
+  /* Posição da bolinha */
+  top: -8px;
+  right: -8px;
+  
+  background-color: var(--preto);
+  color: white;
+  font-size: 0.75rem;
+  font-weight: bold;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  /* Sombra para destacar a bolinha */
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2); 
+  z-index: 2; 
+}
+
+.mini-details h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+  line-height: 1.2;
+}
+
+.mini-variant {
+  font-size: 0.8rem;
+  color: #666;
+  margin-bottom: 0.3rem;
+}
+
+.mini-price {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.mini-total {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.2rem;
+}
+
+/* --- ESTILO DA COLUNA DIREITA (FORMULÁRIO) --- */
+.shipping-form-container {
+  width: 100%;
+}
+
+.shipping-form {
+  background-color: var(--branco);
+  padding: 2rem;
+  border-radius: 12px;
+  /* Efeito de cartão flutuante */
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+}
+
+.shipping-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+}
+
+/* Inputs e Labels (Estilo Moderno Mantido) */
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  color: #666;
+  letter-spacing: 0.5px;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 0;
+  border: none;
+  border-bottom: 2px solid #eee;
+  border-radius: 0;
+  background: transparent;
+  font-size: 1rem;
+  font-family: var(--font-principal);
+  transition: border-color 0.3s, padding-left 0.3s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-bottom-color: var(--preto);
+  padding-left: 0.5rem;
+}
+
+.shipping-form .btn-action {
+  width: 100%;
+  margin-top: 2rem;
+  padding: 1.1rem;
+  background-color: var(--preto);
+  color: var(--branco);
+  font-weight: 700;
+  font-size: 1rem;
+  text-transform: uppercase;
+  border-radius: 50px;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.shipping-form .btn-action:hover {
+  background-color: #333;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+}
+
+.shipping-form .btn-action:active {
+  transform: translateY(-1px);
+}
+
+/* --- Responsividade (Mobile) --- */
+@media (max-width: 900px) {
+  .shipping-content-grid {
+    grid-template-columns: 1fr; /* Empilha: Resumo em cima, Form embaixo */
+    gap: 3rem;
+  }
+  
+  /* Inverte a ordem no mobile: Form primeiro, resumo depois (opcional) */
+  /* Remova se preferir o resumo primeiro */
+  .shipping-content-grid {
+    display: flex;
+    flex-direction: column-reverse; 
+  }
+  
+  .order-summary-preview {
+    width: 100%;
+  }
+
+  .shipping-wrapper {
+    padding: 1rem;
+  }
+
+  .shipping-form {
+    padding: 1.5rem;
+    box-shadow: none;
+    border: 1px solid #eee;
+  }
+}
