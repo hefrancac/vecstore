@@ -128,4 +128,4 @@ O site rodará em http://localhost:5173
         ├── context/    # Lógica global (Auth, Cart)
         └── screens/    # Páginas (Home, Product, Checkout)
 
-Desenvolvido com 💜 por V&C Tech Team.
+Desenvolvido por Henrique França.
